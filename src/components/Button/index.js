@@ -26,7 +26,8 @@ function Button({
         onClick,
         ...passProps,
     };
-    //Remove event listener when button is disabled
+
+    // Remove event listener when button is disabled
     if (disabled) {
         Object.keys(props).forEach((key) => {
             if (key.startsWith('on') && typeof props[key] === 'function') {
@@ -36,7 +37,7 @@ function Button({
     }
 
     if (to) {
-        props.tp = to;
+        props.to = to;
         Comp = Link;
     } else if (href) {
         props.href = href;
@@ -44,17 +45,18 @@ function Button({
     }
 
     const classes = cx('wrapper', {
+        [className]: className,
         primary,
         outline,
         text,
-        rounded,
         disabled,
+        rounded,
         small,
         large,
-        [className]: className,
     });
+
     return (
-        <Comp classNames={classes} {...props}>
+        <Comp className={classes} {...props}>
             {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
             <span className={cx('title')}>{children}</span>
             {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
