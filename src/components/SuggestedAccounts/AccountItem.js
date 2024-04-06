@@ -10,13 +10,13 @@ import AccountPreview from './AccountPreview/AccountPreview';
 
 const cx = classNames.bind(styles)
 
-function AccountItem() {
+function AccountItem({ data }) {
 
     const renderPreview = (props) => {
         return (
             <div tabIndex="-1" {...props}>
                 <PopperWrapper>
-                    <AccountPreview />
+                    <AccountPreview data={data}/>
                 </PopperWrapper>
             </div>
         )
@@ -32,13 +32,15 @@ function AccountItem() {
                 placement='bottom'
             >
                 <div className={cx('account-item')}>
-                    <img className={cx('avatar')} src='https://i.pinimg.com/originals/8d/36/43/8d3643a907a5a4fdac84206e5ea75db2.jpg' alt=''/>
+                    <img className={cx('avatar')} src={data.avatar} alt={data.nickname}/>
                     <div className={cx('item-info')}>
                         <p className={cx('nickname')}>
-                            <strong>quocnguyenphu</strong>
-                            <FontAwesomeIcon className={cx('check')} icon={faCheckCircle}/>
+                            <strong>{data.nickname}</strong>
+                            {data.tick && (
+                                <FontAwesomeIcon className={cx('check')} icon={faCheckCircle}/>
+                            )}
                         </p>
-                        <p className={cx('name')}>Quốc Nguyễn Phú</p>
+                        <p className={cx('name')}>{`${data.first_name} ${data.last_name}`}</p>
                     </div>
                 </div>
             </Tippy>
@@ -46,6 +48,8 @@ function AccountItem() {
      );
 }
 
-AccountItem.propTypes = {}
+AccountItem.propTypes = {
+    data: PropTypes.object.isRequired,
+}
 
 export default AccountItem;
